@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.jwj439.bus.dao.OrderMapper">
+	<resultMap id="BaseResultMap"
+		type="edu.jwj439.bus.entity.Order">
+		<id column="order_id" jdbcType="INTEGER" property="orderId" />
+		<result column="order_number" jdbcType="VARCHAR"
+			property="orderNumber" />
+		<result column="order_cust_name" jdbcType="VARCHAR"
+			property="orderCustName" />
+		<result column="order_operator" jdbcType="VARCHAR"
+			property="orderOperator" />
+		<result column="order_feetype" jdbcType="INTEGER"
+			property="orderFeetype" />
+		<result column="order_pay" jdbcType="DOUBLE"
+			property="orderPay" />
+		<result column="order_starttime" jdbcType="TIMESTAMP"
+			property="orderStarttime" />
+		<result column="order_endtime" jdbcType="TIMESTAMP"
+			property="orderEndtime" />
+		<result column="order_createtime" jdbcType="TIMESTAMP"
+			property="orderCreatetime" />
+		<result column="order_state" jdbcType="INTEGER"
+			property="orderState" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		order_id, order_number, order_cust_name, order_operator,
+		order_feetype,
+		order_pay,
+		order_starttime, order_endtime,
+		order_createtime
+		order_state
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bus_order
+		where order_id = #{orderId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from bus_order
+		where order_id =
+		#{orderId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="edu.jwj439.bus.entity.Order">
+		insert into bus_order
+		(order_id, order_number, order_cust_name,
+		order_operator,
+		order_feetype, order_pay,
+		order_starttime, order_endtime,
+		order_createtime,order_state
+		)
+		values (#{orderId,jdbcType=INTEGER},
+		#{orderNumber,jdbcType=VARCHAR},
+		#{orderCustName,jdbcType=VARCHAR},
+		#{orderOperator,jdbcType=VARCHAR}, #{orderFeetype,jdbcType=INTEGER},
+		#{orderPay,jdbcType=DOUBLE},
+		#{orderStarttime,jdbcType=TIMESTAMP},
+		#{orderEndtime,jdbcType=TIMESTAMP},
+		#{orderCreatetime,jdbcType=TIMESTAMP},
+		#{orderState,jdbcType=INTEGER},
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="edu.jwj439.bus.entity.Order">
+		insert into bus_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="orderNumber != null">
+				order_number,
+			</if>
+			<if test="orderCustName != null">
+				order_cust_name,
+			</if>
+			<if test="orderOperator != null">
+				order_operator,
+			</if>
+			<if test="orderFeetype != null">
+				order_feetype,
+			</if>
+			<if test="orderState != null">
+				order_state,
+			</if>
+			<if test="orderPay != null">
+				order_pay,
+			</if>
+			<if test="orderStarttime != null">
+				order_starttime,
+			</if>
+			<if test="orderEndtime != null">
+				order_endtime,
+			</if>
+			<if test="orderCreatetime != null">
+				order_createtime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				#{orderId,jdbcType=INTEGER},
+			</if>
+			<if test="orderNumber != null">
+				#{orderNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="orderCustName != null">
+				#{orderCustName,jdbcType=VARCHAR},
+			</if>
+			<if test="orderOperator != null">
+				#{orderOperator,jdbcType=VARCHAR},
+			</if>
+			<if test="orderFeetype != null">
+				#{orderFeetype,jdbcType=INTEGER},
+			</if>
+			<if test="orderState != null">
+				#{orderState,jdbcType=INTEGER},
+			</if>
+			<if test="orderPay != null">
+				#{orderPay,jdbcType=DOUBLE},
+			</if>
+			<if test="orderStarttime != null">
+				#{orderStarttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderEndtime != null">
+				#{orderEndtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderCreatetime != null">
+				#{orderCreatetime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="edu.jwj439.bus.entity.Order">
+		update bus_order
+		<set>
+			<if test="orderNumber != null">
+				order_number = #{orderNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="orderCustName != null">
+				order_cust_name = #{orderCustName,jdbcType=VARCHAR},
+			</if>
+			<if test="orderOperator != null">
+				order_operator = #{orderOperator,jdbcType=VARCHAR},
+			</if>
+			<if test="orderFeetype != null">
+				order_feetype = #{orderFeetype,jdbcType=INTEGER},
+			</if>
+			<if test="orderState != null">
+				order_state = #{orderState,jdbcType=INTEGER},
+			</if>
+			<if test="orderPay != null">
+				order_pay = #{orderPay,jdbcType=DOUBLE},
+			</if>
+			<if test="orderStarttime != null">
+				order_starttime = #{orderStarttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderEndtime != null">
+				order_endtime = #{orderEndtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderCreatetime != null">
+				order_createtime = #{orderCreatetime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where order_id = #{orderId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="edu.jwj439.bus.entity.Order">
+		update bus_order
+		set order_number =
+		#{orderNumber,jdbcType=VARCHAR},
+		order_cust_name =
+		#{orderCustName,jdbcType=VARCHAR},
+		order_operator =
+		#{orderOperator,jdbcType=VARCHAR},
+		order_feetype =
+		#{orderFeetype,jdbcType=INTEGER},
+		order_state =
+		#{orderState,jdbcType=INTEGER},
+		order_pay =
+		#{orderPay,jdbcType=DOUBLE},
+		order_starttime =
+		#{orderStarttime,jdbcType=TIMESTAMP},
+		order_endtime =
+		#{orderEndtime,jdbcType=TIMESTAMP},
+		order_createtime =
+		#{orderCreatetime,jdbcType=TIMESTAMP}
+		where order_id =
+		#{orderId,jdbcType=INTEGER}
+	</update>
+	<select id="queryAllOrder" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bus_order
+		<where>
+			<if test="orderId!=null">
+				and order_id like concat("%",#{orderId},"%")
+			</if>
+			<if test="orderNumber!=null">
+				and order_number like concat("%",#{orderNumber},"%")
+			</if>
+			<if test="orderCustName!=null">
+				and order_cust_name like concat("%",#{orderCustName},"%")
+			</if>
+			<if test="orderOperator!=null">
+				and order_operator like concat("%",#{orderOperator},"%")
+			</if>
+			<if test="orderStarttime!=null">
+				and order_createtime >=#{orderStarttime}
+			</if>
+			<if test="orderEndtime!=null">
+				and order_createtime <![CDATA[<=]]>#{orderEndtime}
+			</if>
+			<if test="orderFeetype!=null">
+				and order_feetype=#{orderFeetype}
+			</if>
+			<if test="orderState!=null">
+				and order_state=#{orderState}
+			</if>
+		</where>
+		order by order_createtime desc
+	</select>
+</mapper>

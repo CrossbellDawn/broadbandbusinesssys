@@ -1,32 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
-	http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
-
 	<display-name>ssm-demo</display-name>
 
-	<!--配置前端控制器 -->
-	<servlet>
-		<servlet-name>dispatcherServlet</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<!--加载springmvc.xml配置文件 -->
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:springmvc-config.xml</param-value>
-		</init-param>
-		<!--启动服务器，创建该servlet -->
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>dispatcherServlet</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
-
-	<!--解决中文乱码的过滤器 -->
+	<!-- 编码过滤器开始 -->
 	<filter>
-		<filter-name>characterEncodingFilter</filter-name>
+		<filter-name>EncodeingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
@@ -34,21 +15,106 @@
 		</init-param>
 	</filter>
 	<filter-mapping>
-		<filter-name>characterEncodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<filter-name>EncodeingFilter</filter-name>
+		<servlet-name>springmvc</servlet-name>
 	</filter-mapping>
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
-	<!--配置Spring的监听器，默认只加载WEB-INF目录下的applicationContext.xml配置文件 -->
+	<!-- 编码过滤器结束 -->
+
+
+	<!-- 监听器开始 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	<!--设置配置文件的路径 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
+	<!-- 监听器结束 -->
 
+
+	<!-- 前端控制器开始 -->
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:springmvc-config.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>*.action</url-pattern>
+	</servlet-mapping>
+
+	<!-- 前端控制器结束 -->
+
+	<!-- druid的监控页面配置开始 -->
+	<servlet>
+		<servlet-name>StatViewServlet</servlet-name>
+		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+		<!-- 配置登陆名 -->
+		<init-param>
+			<param-name>loginUsername</param-name>
+			<param-value>root</param-value>
+		</init-param>
+		<!-- 配置密码 -->
+		<init-param>
+			<param-name>loginPassword</param-name>
+			<param-value>123456</param-value>
+		</init-param>
+		<!-- 设置白名单 -->
+		<init-param>
+			<param-name>allow</param-name>
+			<!-- <param-value>192.168.1.1,192.168.2.4</param-value>s -->
+			<param-value></param-value>
+		</init-param>
+		<!-- 设置黑名单 -->
+		<init-param>
+			<param-name>deny</param-name>
+			<param-value></param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>StatViewServlet</servlet-name>
+		<url-pattern>/druid/*</url-pattern>
+	</servlet-mapping>
+
+
+	<filter>
+		<filter-name>WebStatFilter</filter-name>
+		<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+		<!-- 注入过滤的样式文件 -->
+		<init-param>
+			<param-name>exclusions</param-name>
+			<param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
+		</init-param>
+
+		<init-param>
+			<param-name>profileEnable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>principalCookieName</param-name>
+			<param-value>USER_COOKIE</param-value>
+		</init-param>
+		<init-param>
+			<param-name>principalSessionName</param-name>
+			<param-value>USER_SESSION</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>WebStatFilter</filter-name>
+		<servlet-name>StatViewServlet</servlet-name>
+	</filter-mapping>
+
+
+	<!-- druid的监控页面配置结束 -->
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
 </web-app>
-    

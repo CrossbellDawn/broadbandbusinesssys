@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.jwj439.bus.dao.CustomerMapper">
+	<resultMap id="BaseResultMap"
+		type="edu.jwj439.bus.entity.Customer">
+		<id column="cust_id" jdbcType="INTEGER" property="custId" />
+		<result column="cust_name" jdbcType="VARCHAR"
+			property="custName" />
+		<result column="cust_user_id" jdbcType="INTEGER"
+			property="custUserId" />
+		<result column="cust_create_id" jdbcType="INTEGER"
+			property="custCreateId" />
+		<result column="cust_source" jdbcType="VARCHAR"
+			property="custSource" />
+		<result column="cust_major" jdbcType="VARCHAR"
+			property="custMajor" />
+		<result column="cust_level" jdbcType="VARCHAR"
+			property="custLevel" />
+		<result column="cust_linkman" jdbcType="VARCHAR"
+			property="custLinkman" />
+		<result column="cust_phone" jdbcType="VARCHAR"
+			property="custPhone" />
+		<result column="cust_mobile" jdbcType="VARCHAR"
+			property="custMobile" />
+		<result column="cust_zipcode" jdbcType="VARCHAR"
+			property="custZipcode" />
+		<result column="cust_address" jdbcType="VARCHAR"
+			property="custAddress" />
+		<result column="cust_createtime" jdbcType="TIMESTAMP"
+			property="custCreatetime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		cust_id, cust_name, cust_user_id, cust_create_id,
+		cust_source, cust_major,
+		cust_level,
+		cust_linkman, cust_phone,
+		cust_mobile, cust_zipcode, cust_address, cust_createtime
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bus_customer
+		where cust_id = #{custId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		bus_customer
+		where cust_id = #{custId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="edu.jwj439.bus.entity.Customer">
+		insert into bus_customer (cust_id, cust_name,
+		cust_user_id,
+		cust_create_id, cust_source, cust_major,
+		cust_level,
+		cust_linkman, cust_phone,
+		cust_mobile, cust_zipcode, cust_address,
+		cust_createtime)
+		values (#{custId,jdbcType=INTEGER},
+		#{custName,jdbcType=VARCHAR},
+		#{custUserId,jdbcType=INTEGER},
+		#{custCreateId,jdbcType=INTEGER}, #{custSource,jdbcType=VARCHAR},
+		#{custMajor,jdbcType=VARCHAR},
+		#{custLevel,jdbcType=VARCHAR},
+		#{custLinkman,jdbcType=VARCHAR},
+		#{custPhone,jdbcType=VARCHAR},
+		#{custMobile,jdbcType=VARCHAR}, #{custZipcode,jdbcType=VARCHAR},
+		#{custAddress,jdbcType=VARCHAR},
+		#{custCreatetime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="edu.jwj439.bus.entity.Customer">
+		insert into bus_customer
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="custId != null">
+				cust_id,
+			</if>
+			<if test="custName != null">
+				cust_name,
+			</if>
+			<if test="custUserId != null">
+				cust_user_id,
+			</if>
+			<if test="custCreateId != null">
+				cust_create_id,
+			</if>
+			<if test="custSource != null">
+				cust_source,
+			</if>
+			<if test="custMajor != null">
+				cust_major,
+			</if>
+			<if test="custLevel != null">
+				cust_level,
+			</if>
+			<if test="custLinkman != null">
+				cust_linkman,
+			</if>
+			<if test="custPhone != null">
+				cust_phone,
+			</if>
+			<if test="custMobile != null">
+				cust_mobile,
+			</if>
+			<if test="custZipcode != null">
+				cust_zipcode,
+			</if>
+			<if test="custAddress != null">
+				cust_address,
+			</if>
+			<if test="custCreatetime != null">
+				cust_createtime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="custId != null">
+				#{custId,jdbcType=VARCHAR},
+			</if>
+			<if test="custName != null">
+				#{custName,jdbcType=VARCHAR},
+			</if>
+			<if test="custUserId != null">
+				#{custUserId,jdbcType=INTEGER},
+			</if>
+			<if test="custCreateId != null">
+				#{custCreateId,jdbcType=INTEGER},
+			</if>
+			<if test="custSource != null">
+				#{custSource,jdbcType=VARCHAR},
+			</if>
+			<if test="custMajor != null">
+				#{custMajor,jdbcType=VARCHAR},
+			</if>
+			<if test="custLevel != null">
+				#{custLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="custLinkman != null">
+				#{custLinkman,jdbcType=VARCHAR},
+			</if>
+			<if test="custPhone != null">
+				#{custPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="custMobile != null">
+				#{custMobile,jdbcType=VARCHAR},
+			</if>
+			<if test="custZipcode != null">
+				#{custZipcode,jdbcType=VARCHAR},
+			</if>
+			<if test="custAddress != null">
+				#{custAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="custCreatetime != null">
+				#{custCreatetime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="edu.jwj439.bus.entity.Customer">
+		update bus_customer
+		<set>
+			<if test="custName != null">
+				cust_name = #{custName,jdbcType=VARCHAR},
+			</if>
+			<if test="custUserId != null">
+				cust_user_id = #{custUserId,jdbcType=INTEGER},
+			</if>
+			<if test="custCreateId != null">
+				cust_create_id = #{custCreateId,jdbcType=INTEGER},
+			</if>
+			<if test="custSource != null">
+				cust_source = #{custSource,jdbcType=VARCHAR},
+			</if>
+			<if test="custMajor != null">
+				cust_major = #{custMajor,jdbcType=VARCHAR},
+			</if>
+			<if test="custLevel != null">
+				cust_level = #{custLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="custLinkman != null">
+				cust_linkman = #{custLinkman,jdbcType=VARCHAR},
+			</if>
+			<if test="custPhone != null">
+				cust_phone = #{custPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="custMobile != null">
+				cust_mobile = #{custMobile,jdbcType=VARCHAR},
+			</if>
+			<if test="custZipcode != null">
+				cust_zipcode = #{custZipcode,jdbcType=VARCHAR},
+			</if>
+			<if test="custAddress != null">
+				cust_address = #{custAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="custCreatetime != null">
+				cust_createtime = #{custCreatetime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where cust_id = #{custId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="edu.jwj439.bus.entity.Customer">
+		update bus_customer
+		set cust_name =
+		#{custName,jdbcType=VARCHAR},
+		cust_user_id =
+		#{custUserId,jdbcType=INTEGER},
+		cust_create_id =
+		#{custCreateId,jdbcType=INTEGER},
+		cust_source =
+		#{custSource,jdbcType=VARCHAR},
+		cust_major =
+		#{custMajor,jdbcType=VARCHAR},
+		cust_level =
+		#{custLevel,jdbcType=VARCHAR},
+		cust_linkman =
+		#{custLinkman,jdbcType=VARCHAR},
+		cust_phone =
+		#{custPhone,jdbcType=VARCHAR},
+		cust_mobile =
+		#{custMobile,jdbcType=VARCHAR},
+		cust_zipcode =
+		#{custZipcode,jdbcType=VARCHAR},
+		cust_address =
+		#{custAddress,jdbcType=VARCHAR},
+		cust_createtime =
+		#{custCreatetime,jdbcType=TIMESTAMP}
+		where cust_id =
+		#{custId,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询所有客户信息 -->
+	<select id="queryAllCustomer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from bus_customer
+		<where>
+			<if test="custId!=null and custId!=''"> and cust_id like concat ("%",#{custId},"%")</if>
+			<if test="custName!=null and custName!=''"> and cust_name like concat ("%",#{custName},"%")</if>
+			<if test="custUserId!=null and custUserId!=''"> and cust_user_id like concat ("%",#{custUserId},"%")
+			</if>
+			<if test="custCreateId!=null and custCreateId!=''"> and cust_create_id like concat ("%",#{custCreateId},"%")
+			</if>
+			<if test="custSource!=null and custSource!=''"> and cust_source like concat ("%",#{custSource},"%")</if>
+			<if test="custMajor!=null and custMajor!=''"> and cust_major like concat ("%",#{custMajor},"%")</if>
+			<if test="custLevel!=null and custLevel!=''"> and cust_level like concat ("%",#{custLevel},"%")</if>
+			<if test="custLinkman!=null and custLinkman!=''"> and cust_linkman like concat ("%",#{custLinkman},"%")
+			</if>
+			<if test="custCreatetime!=null"> and cust_createtime like concat ("%",#{custCreatetime,jdbcType=DATE},"%")</if>
+		</where>
+		order by cust_createtime desc
+	</select>
+
+
+</mapper>

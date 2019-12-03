@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.jwj439.bus.dao.BoardBandMapper">
+  <resultMap id="BaseResultMap" type="edu.jwj439.bus.entity.BoardBand">
+    <id column="band_id" jdbcType="INTEGER" property="bandId" />
+    <result column="band_width" jdbcType="VARCHAR" property="bandWidth" />
+    <result column="band_speed" jdbcType="VARCHAR" property="bandSpeed" />
+    <result column="band_mouthly" jdbcType="DOUBLE" property="bandMouthly" />
+    <result column="band_yearly" jdbcType="DOUBLE" property="bandYearly" />
+    <result column="band_desc" jdbcType="VARCHAR" property="bandDesc" />
+    <result column="band_state" jdbcType="INTEGER" property="bandState" />
+    <result column="band_createtime" jdbcType="TIMESTAMP" property="bandCreatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    band_id, band_width, band_speed, band_mouthly, band_yearly, band_desc, band_state, 
+    band_createtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bus_boardband
+    where band_id = #{bandId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bus_boardband
+    where band_id = #{bandId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="edu.jwj439.bus.entity.BoardBand">
+    insert into bus_boardband (band_id, band_width, band_speed, 
+      band_mouthly, band_yearly, band_desc, 
+      band_state, band_createtime)
+    values (#{bandId,jdbcType=INTEGER}, #{bandWidth,jdbcType=VARCHAR}, #{bandSpeed,jdbcType=VARCHAR}, 
+      #{bandMouthly,jdbcType=DOUBLE}, #{bandYearly,jdbcType=DOUBLE}, #{bandDesc,jdbcType=VARCHAR}, 
+      #{bandState,jdbcType=INTEGER}, #{bandCreatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.jwj439.bus.entity.BoardBand">
+    insert into bus_boardband
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bandId != null">
+        band_id,
+      </if>
+      <if test="bandWidth != null">
+        band_width,
+      </if>
+      <if test="bandSpeed != null">
+        band_speed,
+      </if>
+      <if test="bandMouthly != null">
+        band_mouthly,
+      </if>
+      <if test="bandYearly != null">
+        band_yearly,
+      </if>
+      <if test="bandDesc != null">
+        band_desc,
+      </if>
+      <if test="bandState != null">
+        band_state,
+      </if>
+      <if test="bandCreatetime != null">
+        band_createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bandId != null">
+        #{bandId,jdbcType=INTEGER},
+      </if>
+      <if test="bandWidth != null">
+        #{bandWidth,jdbcType=VARCHAR},
+      </if>
+      <if test="bandSpeed != null">
+        #{bandSpeed,jdbcType=VARCHAR},
+      </if>
+      <if test="bandMouthly != null">
+        #{bandMouthly,jdbcType=DOUBLE},
+      </if>
+      <if test="bandYearly != null">
+        #{bandYearly,jdbcType=DOUBLE},
+      </if>
+      <if test="bandDesc != null">
+        #{bandDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="bandState != null">
+        #{bandState,jdbcType=INTEGER},
+      </if>
+      <if test="bandCreatetime != null">
+        #{bandCreatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.jwj439.bus.entity.BoardBand">
+    update bus_boardband
+    <set>
+      <if test="bandWidth != null">
+        band_width = #{bandWidth,jdbcType=VARCHAR},
+      </if>
+      <if test="bandSpeed != null">
+        band_speed = #{bandSpeed,jdbcType=VARCHAR},
+      </if>
+      <if test="bandMouthly != null">
+        band_mouthly = #{bandMouthly,jdbcType=DOUBLE},
+      </if>
+      <if test="bandYearly != null">
+        band_yearly = #{bandYearly,jdbcType=DOUBLE},
+      </if>
+      <if test="bandDesc != null">
+        band_desc = #{bandDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="bandState != null">
+        band_state = #{bandState,jdbcType=INTEGER},
+      </if>
+      <if test="bandCreatetime != null">
+        band_createtime = #{bandCreatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where band_id = #{bandId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.jwj439.bus.entity.BoardBand">
+    update bus_boardband
+    set band_width = #{bandWidth,jdbcType=VARCHAR},
+      band_speed = #{bandSpeed,jdbcType=VARCHAR},
+      band_mouthly = #{bandMouthly,jdbcType=DOUBLE},
+      band_yearly = #{bandYearly,jdbcType=DOUBLE},
+      band_desc = #{bandDesc,jdbcType=VARCHAR},
+      band_state = #{bandState,jdbcType=INTEGER},
+      band_createtime = #{bandCreatetime,jdbcType=TIMESTAMP}
+    where band_id = #{bandId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询所有宽带产品 -->
+  <select id="queryAllBoardBand" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from bus_boardband
+		<where>
+			<if test="bandId!=null">
+				and band_id = #{bandId,jdbcType=INTEGER}
+			</if>
+			<if test="bandWidth!=null">
+				and band_width = #{bandWidth,jdbcType=VARCHAR}
+			</if>
+		</where>
+		
+	</select>
+</mapper>
