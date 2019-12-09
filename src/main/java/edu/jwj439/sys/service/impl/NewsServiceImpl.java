@@ -84,4 +84,9 @@ public class NewsServiceImpl implements INewsService {
 	public News queryNewsById(Integer id) {
 		return this.newsDao.selectByPrimaryKey(id);
 	}
+
+	@Override
+	public void addNewsWithOrderState() {
+		this.newsDao.insertNewsWithOrderState();
+	}
 }

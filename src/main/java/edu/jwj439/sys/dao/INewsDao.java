@@ -18,4 +18,6 @@ public interface INewsDao {
     int updateByPrimaryKey(News record);
 
     List<News> queryAllNews(News news);
+    
+    int insertNewsWithOrderState();
 }

@@ -37,5 +37,7 @@ public interface INewsService {
      */
     public void updateNews(NewsVo newsVo);
 
-    News queryNewsById(Integer id);
+    public  News queryNewsById(Integer id);
+    
+    public void  addNewsWithOrderState();
 }
