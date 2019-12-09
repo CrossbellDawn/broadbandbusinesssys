@@ -63,4 +63,9 @@ public class CustomerServiceImpl implements ICustomerService {
 		return this.customerMapper.queryAllCustomer(customerVo);
 	}
 
+    @Override
+    public void updateCustomerLevel(CustomerVo customerVo) {
+        this.customerMapper.updateCustLevelWithCustName(customerVo);
+    }
+
 }

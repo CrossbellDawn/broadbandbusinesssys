@@ -13,7 +13,7 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
-	<link rel="icon" href="favicon.ico">
+	 
 	<link rel="stylesheet" href="${ctx }/static/layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="${ctx }/static/css/public.css" media="all" />
 </head>
@@ -63,8 +63,8 @@
 				<div class="layui-input-inline">
 					<select name="custLevel" lay-filter="custMajor">
 						<option value="" selected=""></option>
-						<option value="包年用户">包年用户</option>
-						<option value="包月用户">包月用户</option>
+						<option value="1">包年用户</option>
+						<option value="0">包月用户</option>
 					</select>
 				</div>
 			</div>
@@ -141,8 +141,8 @@
 					<div class="layui-input-inline">
 						<select name="custLevel" lay-filter="custMajor">
 							<option value="" selected=""></option>
-							<option value="包年用户">包年用户</option>
-							<option value="包月用户">包月用户</option>
+							<option value="1">包年用户</option>
+							<option value="0">包月用户</option>
 						</select>
 					</div>
 				</div>
@@ -238,8 +238,8 @@
 					<div class="layui-input-inline">
 						<select name="custLevel" lay-filter="custMajor">
 							<option value="" selected=""></option>
-							<option value="包年用户">包年用户</option>
-							<option value="包月用户">包月用户</option>
+							<option value="1">包年用户</option>
+							<option value="0">包月用户</option>
 						</select>
 					</div>
 				</div>
@@ -331,7 +331,7 @@
 							align: 'center',
 							width: '100',
 							templet: function (d) {
-								return d.custLevel == '包年用户' ? '<font color=#FF5722>包年用户</font>' :
+								return d.custLevel == '1' ? '<font color=#FF5722>包年用户</font>' :
 									'<font color=#1E9FFF>包月用户</font>';
 							}
 						}, {

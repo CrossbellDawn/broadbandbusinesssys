@@ -82,4 +82,11 @@ public interface SysConstast {
 	 */
 	Integer FEETYPE_MOUTHLY = 0; //包月
 	Integer FEETYPE_YEARLY = 1; //包年
+	/**
+	 * 订单状态
+	 */
+	Integer ORDER_STATE_WAIT = 0;//未生效
+	Integer ORDER_STATE_ON = 1; //使用中
+	Integer ORDER_STATE_OFF=2; //已过期
+	Integer ORDER_STATE_WARN=3; //还有三天过期
 }

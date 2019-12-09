@@ -13,7 +13,6 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
-	<link rel="icon" href="favicon.ico">
 	<link rel="stylesheet" href="${ctx }/static/layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="${ctx }/static/css/public.css" media="all" />
 </head>
@@ -85,7 +84,7 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">包月费用:</label>
 					<div class="layui-input-inline">
-						<input type="text" name="bandMouthly" autocomplete="off" class="layui-input">
+						<input type="text" name="bandMonthly" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
@@ -157,7 +156,7 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">包月费用:</label>
 					<div class="layui-input-inline">
-						<input type="text" name="bandMouthly" autocomplete="off" class="layui-input">
+						<input type="text" name="bandMonthly" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
@@ -247,7 +246,7 @@
 							width: '120'
 						},
 						{
-							field: 'bandMouthly',
+							field: 'bandMonthly',
 							title: '包月费用(元）',
 							align: 'center',
 							width: '120'

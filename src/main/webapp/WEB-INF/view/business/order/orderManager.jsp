@@ -13,7 +13,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="icon" href="favicon.ico">
+     
     <link rel="stylesheet" href="${ctx }/static/layui/css/layui.css" media="all" />
     <link rel="stylesheet" href="${ctx }/static/css/public.css" media="all" />
 </head>
@@ -30,6 +30,12 @@
                     <label class="layui-form-label">宽带订单:</label>
                     <div class="layui-input-inline">
                         <input type="text" name="orderNumber" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">宽带产品:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="orderBandwidth" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -67,16 +73,16 @@
                         <input type="radio" name="orderFeetype" value="0" title="包月">
                     </div>
                 </div>
+                <div class="layui-inline" style="text-align: center;padding-left: 30px;">
+                    <div class="layui-input-inline">
+                        <button type="button" class="layui-btn layui-btn-normal  layui-icon layui-icon-search"
+                            id="doSearch">查询</button>
+                        <button type="reset" class="layui-btn layui-btn-warm  layui-icon layui-icon-refresh">重置</button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="layui-form-item" style="text-align: center;">
-            <div class="layui-input-block">
-                <button type="button" class="layui-btn layui-btn-normal  layui-icon layui-icon-search"
-                    id="doSearch">查询</button>
-                <button type="reset" class="layui-btn layui-btn-warm  layui-icon layui-icon-refresh">重置</button>
-            </div>
-        </div>
     </form>
 
     <!-- 搜索条件结束 -->
@@ -86,12 +92,12 @@
     <div style="display: none;" id="rentToolBar">
     </div>
     <script type="text/html" id="rentBar">
-        {{#  if(d.rentflag ==1){ }}
-        <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="exportRent">导出出租单</a>
+        {{#  if(d.orderState ==0){ }}
+        <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="exportOrder">导出业务单</a>
         {{#  } else { }}
         <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-        <a class="layui-btn layui-btn-xs" lay-event="exportRent">导出业务单</a>
+        <a class="layui-btn layui-btn-xs" lay-event="exportOrder">导出业务单</a>
         {{#  } }}
     </script>
     <!-- 数据表格结束 -->
@@ -100,58 +106,69 @@
     <div style="display: none;padding: 20px" id="saveOrUpdateDiv">
         <form class="layui-form" lay-filter="dataFrm" id="dataFrm">
             <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">起租时间:</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="begindate" id="begindate" readonly="readonly" placeholder="请输入起租时间"
-                            autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">还车时间:</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="returndate" id="returndate" readonly="readonly" placeholder="请输入还车时间"
-                            autocomplete="off" class="layui-input">
+                <div class="layui-block">
+                    <label class="layui-form-label">业务单号:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="orderNumber" autocomplete="off" readonly class="layui-input">
                     </div>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">出租单号:</label>
-                <div class="layui-input-block">
-                    <input type="text" name="rentid" lay-verify="required" readonly="readonly" placeholder="请输入出租单号"
-                        autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">身份证号:</label>
-                <div class="layui-input-block">
-                    <input type="text" name="identity" lay-verify="required" readonly="readonly" placeholder="请输入身份证号"
-                        autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">车牌号:</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="carnumber" lay-verify="required" readonly="readonly"
-                            placeholder="请输入车牌号" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">出租价格:</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="price" lay-verify="required" placeholder="请输入出租价格" autocomplete="off"
-                            class="layui-input">
+                <div class="layui-block">
+                    <label class="layui-form-label">宽带业务:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="orderBandwidth" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">操作员:</label>
-                <div class="layui-input-block">
-                    <input type="text" name="opername" lay-verify="required" readonly="readonly" placeholder="请输入操作员"
-                        autocomplete="off" class="layui-input">
+                <div class="layui-inline">
+                    <label class="layui-form-label">客户姓名:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="orderCustName" autocomplete="off" readonly class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">操作人员:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="orderOperator" autocomplete="off" class="layui-input">
+                    </div>
                 </div>
             </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">计费类型:</label>
+                    <div class="layui-input-inline">
+                        <input type="radio" name="orderFeetype" value="1" title="包年" id="orderFeetype"
+                            lay-filter="orderFeetype" checked>
+                        <input type="radio" name="orderFeetype" value="0" title="包月" id="orderFeetype"
+                            lay-filter="orderFeetype">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">租约费用:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="orderPay" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">起始时间:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="orderStarttime" id="orderStarttime" autocomplete="off"
+                            class="layui-input" lay-verify="timestamp" placeholder="yyyy-MM-dd">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">到期时间:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="orderEndtime" id="orderEndtime" autocomplete="off" class="layui-input"
+                            lay-verify="timestamp" placeholder="yyyy-MM-dd">
+                    </div>
+                </div>
+            </div>
+
             <div class="layui-form-item" style="text-align: center;">
                 <div class="layui-input-block">
                     <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release"
@@ -175,11 +192,11 @@
             var table = layui.table;
             var laydate = layui.laydate;
             laydate.render({
-                elem: '#startTime',
+                elem: '#orderStarttime',
                 type: 'datetime'
             });
             laydate.render({
-                elem: '#endTime',
+                elem: '#orderEndtime',
                 type: 'datetime'
             });
 
@@ -201,21 +218,25 @@
                 cols: [
                     [ //列表数据
                         {
-                            type: 'checkbox',
-                            fixed: 'left'
-                        }, {
                             field: 'orderNumber',
                             title: '宽带订单',
                             align: 'center',
-                            width: '280'
-                        }, {
+                            width: '200'
+                        },
+                        {
+                            field: 'orderBandwidth',
+                            title: '宽带产品',
+                            align: 'center',
+                            width: '100'
+                        },
+                        {
                             field: 'orderCustName',
                             title: '客户姓名',
                             align: 'center',
                             width: '100'
                         }, {
                             field: 'orderOperator',
-                            title: '操作员',
+                            title: '经办人',
                             align: 'center',
                             width: '100'
                         }, {
@@ -224,9 +245,15 @@
                             align: 'center',
                             width: '120',
                             templet: function (d) {
-                                return d.rentflag == '1' ? '<font color=red>包年</font>' :
+                                return d.orderFeetype == '1' ? '<font color=red>包年</font>' :
                                     '<font color=blue>包月</font>';
                             }
+                        },
+                        {
+                            field: 'orderPay',
+                            title: '缴纳费用',
+                            align: 'center',
+                            width: '100'
                         }, {
                             field: 'orderCreatetime',
                             title: '签约时间',
@@ -242,13 +269,27 @@
                             title: '到期时间',
                             align: 'center',
                             width: '180'
+                        }, {
+                            field: 'orderState',
+                            title: '订单状态',
+                            align: 'center',
+                            width: '100',
+                            templet: function (d) {
+                                switch (d.orderState) {
+                                    case 0:
+                                        return '<font color=#FFB800>未生效</font>';
+                                    case 1:
+                                        return '<font color=#009688>生效中</font>';
+                                    case 2:
+                                        return '<font color=#c2c2c2>已过期</font>';
+                                    case 3:
+                                        return '<font color=#FF5722>将过期</font>';
+                                    default:
+                                        break;
+                                }
+                            }
                         },
                         {
-                            field: 'orderPay',
-                            title: '缴纳费用',
-                            align: 'center',
-                            width: '100'
-                        }, {
                             fixed: 'right',
                             title: '操作',
                             toolbar: '#rentBar',
@@ -283,7 +324,7 @@
                 var data = obj.data; //获得当前行数据
                 var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
                 if (layEvent === 'del') { //删除
-                    layer.confirm('真的删除【' + data.orderId + '】这个出租单吗', function (index) {
+                    layer.confirm('真的删除【' + data.orderId + '】这个业务单吗', function (index) {
                         //向服务端发送删除指令
                         $.post("${ctx}/order/deleteOrder.action", {
                             orderId: data.orderId

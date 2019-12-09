@@ -1,7 +1,6 @@
 package edu.jwj439.bus.dao;
 
 import java.util.List;
-
 import edu.jwj439.bus.entity.Customer;
 
 public interface CustomerMapper {
@@ -16,6 +15,8 @@ public interface CustomerMapper {
     int updateByPrimaryKeySelective(Customer record);
 
     int updateByPrimaryKey(Customer record);
-    
+
+    int updateCustLevelWithCustName(Customer record);
+
     List<Customer> queryAllCustomer(Customer customer);
 }

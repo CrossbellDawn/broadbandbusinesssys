@@ -31,7 +31,7 @@ public class OrderServiceImpl implements IOrderService{
 
     @Override
     public void updateOrder(OrderVo orderVo) {
-        this.orderMapper.updateByPrimaryKey(orderVo);
+        this.orderMapper.updateByOrderNumber(orderVo);
     }
 
     @Override
@@ -54,6 +54,11 @@ public class OrderServiceImpl implements IOrderService{
     @Override
     public List<Order> queryAllOrderForList(OrderVo orderVo) {
         return this.orderMapper.queryAllOrder(orderVo);
+    }
+
+    @Override
+    public void updateOrderState() {
+      this.orderMapper.updateOrderState();
     }
 
 }

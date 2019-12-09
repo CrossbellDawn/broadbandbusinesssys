@@ -14,7 +14,7 @@
 			property="custSource" />
 		<result column="cust_major" jdbcType="VARCHAR"
 			property="custMajor" />
-		<result column="cust_level" jdbcType="VARCHAR"
+		<result column="cust_level" jdbcType="INTEGER"
 			property="custLevel" />
 		<result column="cust_linkman" jdbcType="VARCHAR"
 			property="custLinkman" />
@@ -36,17 +36,19 @@
 		cust_linkman, cust_phone,
 		cust_mobile, cust_zipcode, cust_address, cust_createtime
 	</sql>
-	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
-		resultMap="BaseResultMap">
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from bus_customer
 		where cust_id = #{custId,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
 		delete from
 		bus_customer
-		where cust_id = #{custId,jdbcType=INTEGER}
+		where cust_id =
+		#{custId,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert"
 		parameterType="edu.jwj439.bus.entity.Customer">
@@ -62,7 +64,7 @@
 		#{custUserId,jdbcType=INTEGER},
 		#{custCreateId,jdbcType=INTEGER}, #{custSource,jdbcType=VARCHAR},
 		#{custMajor,jdbcType=VARCHAR},
-		#{custLevel,jdbcType=VARCHAR},
+		#{custLevel,jdbcType=INTEGER},
 		#{custLinkman,jdbcType=VARCHAR},
 		#{custPhone,jdbcType=VARCHAR},
 		#{custMobile,jdbcType=VARCHAR}, #{custZipcode,jdbcType=VARCHAR},
@@ -133,7 +135,7 @@
 				#{custMajor,jdbcType=VARCHAR},
 			</if>
 			<if test="custLevel != null">
-				#{custLevel,jdbcType=VARCHAR},
+				#{custLevel,jdbcType=INTEGER},
 			</if>
 			<if test="custLinkman != null">
 				#{custLinkman,jdbcType=VARCHAR},
@@ -175,7 +177,7 @@
 				cust_major = #{custMajor,jdbcType=VARCHAR},
 			</if>
 			<if test="custLevel != null">
-				cust_level = #{custLevel,jdbcType=VARCHAR},
+				cust_level = #{custLevel,jdbcType=INTEGER},
 			</if>
 			<if test="custLinkman != null">
 				cust_linkman = #{custLinkman,jdbcType=VARCHAR},
@@ -212,7 +214,7 @@
 		cust_major =
 		#{custMajor,jdbcType=VARCHAR},
 		cust_level =
-		#{custLevel,jdbcType=VARCHAR},
+		#{custLevel,jdbcType=INTEGER},
 		cust_linkman =
 		#{custLinkman,jdbcType=VARCHAR},
 		cust_phone =
@@ -246,10 +248,21 @@
 			<if test="custLevel!=null and custLevel!=''"> and cust_level like concat ("%",#{custLevel},"%")</if>
 			<if test="custLinkman!=null and custLinkman!=''"> and cust_linkman like concat ("%",#{custLinkman},"%")
 			</if>
-			<if test="custCreatetime!=null"> and cust_createtime like concat ("%",#{custCreatetime,jdbcType=DATE},"%")</if>
+			<if test="custCreatetime!=null"> and cust_createtime like concat
+				("%",#{custCreatetime,jdbcType=DATE},"%")</if>
 		</where>
 		order by cust_createtime desc
 	</select>
 
+	<update id="updateCustLevelWithCustName"
+		parameterType="edu.jwj439.bus.entity.Customer">
+		update bus_customer
+		<set>
+			<if test="custLevel != null">
+				cust_level = #{custLevel,jdbcType=INTEGER},
+			</if>
+		</set>
+		where cust_Name = #{custName,jdbcType=VARCHAR}
+	</update>
 
 </mapper>

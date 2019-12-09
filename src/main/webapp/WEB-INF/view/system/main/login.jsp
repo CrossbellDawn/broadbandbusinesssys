@@ -11,13 +11,11 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
-	<link rel="icon" href="${ctx}/static/favicon.ico">
 	<link rel="stylesheet" href="${ctx}/static/layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="${ctx}/static/css/public.css" media="all" />
 </head>
 <body class="loginBody">
 	<form class="layui-form" id="loginFrm" method="post" action="${ctx }/login/login.action">
-		<%-- <div class="login_face"><img src="${ctx}/static/images/face.jpg" class="userAvatar"></div> --%>
 		<div class="message">GH宽带业务管理系统—v1.0</div>
 		<div id="darkbannerwrap"></div>
 		<div class="layui-form-item input-item">
@@ -38,9 +36,6 @@
 		</div>
 		<div class="layui-form-item layui-row" style="text-align: center;color: red;">
 			${error }
-		<!-- 	<a href="javascript:;" class="seraph icon-qq layui-col-xs4 layui-col-sm4 layui-col-md4 layui-col-lg4"></a>
-			<a href="javascript:;" class="seraph icon-wechat layui-col-xs4 layui-col-sm4 layui-col-md4 layui-col-lg4"></a>
-			<a href="javascript:;" class="seraph icon-sina layui-col-xs4 layui-col-sm4 layui-col-md4 layui-col-lg4"></a> -->
 		</div>
 	</form>
 	<script type="text/javascript" src="${ctx}/static/layui/layui.js"></script>

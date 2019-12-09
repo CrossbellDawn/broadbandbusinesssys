@@ -9,6 +9,8 @@ public class Order {
 
     private String orderNumber;
 
+    private String orderBandwidth;
+
     private String orderCustName;
 
     private String orderOperator;
@@ -16,28 +18,17 @@ public class Order {
     private Integer orderFeetype;
 
     private Double orderPay;
-    
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss" , timezone="GMT+8")
     private Date orderStarttime;
-
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss" , timezone="GMT+8")
     private Date orderEndtime;
-
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss" , timezone="GMT+8")
     private Date orderCreatetime;
-    
+
     private Integer orderState;
-
-    public Integer getOrderState() {
-        return orderState;
-    }
-
-    public void setOrderState(Integer orderState) {
-        this.orderState = orderState;
-    }
 
     public Integer getOrderId() {
         return orderId;
@@ -53,6 +44,14 @@ public class Order {
 
     public void setOrderNumber(String orderNumber) {
         this.orderNumber = orderNumber == null ? null : orderNumber.trim();
+    }
+
+    public String getOrderBandwidth() {
+        return orderBandwidth;
+    }
+
+    public void setOrderBandwidth(String orderBandwidth) {
+        this.orderBandwidth = orderBandwidth == null ? null : orderBandwidth.trim();
     }
 
     public String getOrderCustName() {
@@ -109,5 +108,13 @@ public class Order {
 
     public void setOrderCreatetime(Date orderCreatetime) {
         this.orderCreatetime = orderCreatetime;
+    }
+
+    public Integer getOrderState() {
+        return orderState;
+    }
+
+    public void setOrderState(Integer orderState) {
+        this.orderState = orderState;
     }
 }

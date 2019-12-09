@@ -25,7 +25,6 @@ public class CustomerController {
      */
     @RequestMapping("loadAllCustomer")
     public DataGridView loadAllCustomer(CustomerVo customerVo) {
-        System.out.println(this.customerService.queryAllCustomer(customerVo));
         return this.customerService.queryAllCustomer(customerVo);
     }
 

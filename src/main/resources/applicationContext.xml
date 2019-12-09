@@ -4,20 +4,18 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans.xsd
-	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context.xsd
-	http://www.springframework.org/schema/aop
-	http://www.springframework.org/schema/aop/spring-aop.xsd
-	http://www.springframework.org/schema/tx
-	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<bean id="placeholderConfigurer"
 		class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
 		<property name="locations" value="classpath:db.properties"></property>
 	</bean>
-	
+
 	<!--配置连接池 -->
 	<!--使用druid数据源 -->
 	<bean id="dataSource"
@@ -60,7 +58,8 @@
 	<!--配置IAccountdao接口所在包 -->
 	<bean id="mapperScanner"
 		class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="edu.jwj439.sys.dao,edu.jwj439.bus.dao" />
+		<property name="basePackage"
+			value="edu.jwj439.sys.dao,edu.jwj439.bus.dao,edu.jwj439.stats.dao" />
 	</bean>
 
 	<!-- 配置Service层相关 -->
@@ -70,7 +69,7 @@
 	<context:component-scan
 		base-package="edu.jwj439.bus.service"></context:component-scan>
 	<context:component-scan
-		base-package="edu.jwj439.stat.service"></context:component-scan>
+		base-package="edu.jwj439.stats.service"></context:component-scan>
 
 	<!-- 1,声明事务管理器 -->
 	<bean id="transactionManager"
@@ -105,12 +104,18 @@
 			expression="execution(* edu.jwj439.bus.service.impl.*.*(..))"
 			id="pc2" />
 		<aop:pointcut
-			expression="execution(* edu.jwj439.stat.service.impl.*.*(..))"
+			expression="execution(* edu.jwj439.stats.service.impl.*.*(..))"
 			id="pc3" />
 		<!-- 织入 -->
 		<aop:advisor advice-ref="advise" pointcut-ref="pc1" />
 		<aop:advisor advice-ref="advise" pointcut-ref="pc2" />
 		<aop:advisor advice-ref="advise" pointcut-ref="pc3" />
 	</aop:config>
+	<!-- 扫描计划任务 -->
+	<context:component-scan
+		base-package="edu.jwj.bus.task"></context:component-scan>
 
+	<!-- 注入ApplicationContextAware接口实现类，spring上下文环境 -->
+	<bean id="applicationContextUtil"
+		class="edu.jwj439.sys.utils.ApplicationContextUtil" />
 </beans>

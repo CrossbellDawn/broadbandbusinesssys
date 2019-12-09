@@ -6,6 +6,8 @@
 		<id column="order_id" jdbcType="INTEGER" property="orderId" />
 		<result column="order_number" jdbcType="VARCHAR"
 			property="orderNumber" />
+		<result column="order_bandwidth" jdbcType="VARCHAR"
+			property="orderBandwidth" />
 		<result column="order_cust_name" jdbcType="VARCHAR"
 			property="orderCustName" />
 		<result column="order_operator" jdbcType="VARCHAR"
@@ -24,12 +26,11 @@
 			property="orderState" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		order_id, order_number, order_cust_name, order_operator,
+		order_id, order_number, order_bandwidth, order_cust_name,
+		order_operator,
 		order_feetype,
-		order_pay,
-		order_starttime, order_endtime,
-		order_createtime
-		order_state
+		order_pay, order_starttime,
+		order_endtime, order_createtime, order_state
 	</sql>
 	<select id="selectByPrimaryKey"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -46,22 +47,20 @@
 	</delete>
 	<insert id="insert" parameterType="edu.jwj439.bus.entity.Order">
 		insert into bus_order
-		(order_id, order_number, order_cust_name,
-		order_operator,
-		order_feetype, order_pay,
-		order_starttime, order_endtime,
-		order_createtime,order_state
-		)
-		values (#{orderId,jdbcType=INTEGER},
-		#{orderNumber,jdbcType=VARCHAR},
+		(order_id, order_number, order_bandwidth,
+		order_cust_name,
+		order_operator, order_feetype,
+		order_pay, order_starttime,
+		order_endtime,
+		order_createtime, order_state)
+		values
+		(#{orderId,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR},
+		#{orderBandwidth,jdbcType=VARCHAR},
 		#{orderCustName,jdbcType=VARCHAR},
 		#{orderOperator,jdbcType=VARCHAR}, #{orderFeetype,jdbcType=INTEGER},
-		#{orderPay,jdbcType=DOUBLE},
-		#{orderStarttime,jdbcType=TIMESTAMP},
+		#{orderPay,jdbcType=DOUBLE}, #{orderStarttime,jdbcType=TIMESTAMP},
 		#{orderEndtime,jdbcType=TIMESTAMP},
-		#{orderCreatetime,jdbcType=TIMESTAMP},
-		#{orderState,jdbcType=INTEGER},
-		)
+		#{orderCreatetime,jdbcType=TIMESTAMP}, #{orderState,jdbcType=INTEGER})
 	</insert>
 	<insert id="insertSelective"
 		parameterType="edu.jwj439.bus.entity.Order">
@@ -73,6 +72,9 @@
 			<if test="orderNumber != null">
 				order_number,
 			</if>
+			<if test="orderBandwidth != null">
+				order_bandwidth,
+			</if>
 			<if test="orderCustName != null">
 				order_cust_name,
 			</if>
@@ -81,9 +83,6 @@
 			</if>
 			<if test="orderFeetype != null">
 				order_feetype,
-			</if>
-			<if test="orderState != null">
-				order_state,
 			</if>
 			<if test="orderPay != null">
 				order_pay,
@@ -97,6 +96,9 @@
 			<if test="orderCreatetime != null">
 				order_createtime,
 			</if>
+			<if test="orderState != null">
+				order_state,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="orderId != null">
@@ -104,6 +106,9 @@
 			</if>
 			<if test="orderNumber != null">
 				#{orderNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="orderBandwidth != null">
+				#{orderBandwidth,jdbcType=VARCHAR},
 			</if>
 			<if test="orderCustName != null">
 				#{orderCustName,jdbcType=VARCHAR},
@@ -113,9 +118,6 @@
 			</if>
 			<if test="orderFeetype != null">
 				#{orderFeetype,jdbcType=INTEGER},
-			</if>
-			<if test="orderState != null">
-				#{orderState,jdbcType=INTEGER},
 			</if>
 			<if test="orderPay != null">
 				#{orderPay,jdbcType=DOUBLE},
@@ -129,6 +131,9 @@
 			<if test="orderCreatetime != null">
 				#{orderCreatetime,jdbcType=TIMESTAMP},
 			</if>
+			<if test="orderState != null">
+				#{orderState,jdbcType=INTEGER},
+			</if>
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective"
@@ -138,6 +143,9 @@
 			<if test="orderNumber != null">
 				order_number = #{orderNumber,jdbcType=VARCHAR},
 			</if>
+			<if test="orderBandwidth != null">
+				order_bandwidth = #{orderBandwidth,jdbcType=VARCHAR},
+			</if>
 			<if test="orderCustName != null">
 				order_cust_name = #{orderCustName,jdbcType=VARCHAR},
 			</if>
@@ -146,9 +154,6 @@
 			</if>
 			<if test="orderFeetype != null">
 				order_feetype = #{orderFeetype,jdbcType=INTEGER},
-			</if>
-			<if test="orderState != null">
-				order_state = #{orderState,jdbcType=INTEGER},
 			</if>
 			<if test="orderPay != null">
 				order_pay = #{orderPay,jdbcType=DOUBLE},
@@ -162,6 +167,9 @@
 			<if test="orderCreatetime != null">
 				order_createtime = #{orderCreatetime,jdbcType=TIMESTAMP},
 			</if>
+			<if test="orderState != null">
+				order_state = #{orderState,jdbcType=INTEGER},
+			</if>
 		</set>
 		where order_id = #{orderId,jdbcType=INTEGER}
 	</update>
@@ -170,14 +178,14 @@
 		update bus_order
 		set order_number =
 		#{orderNumber,jdbcType=VARCHAR},
+		order_bandwidth =
+		#{orderBandwidth,jdbcType=VARCHAR},
 		order_cust_name =
 		#{orderCustName,jdbcType=VARCHAR},
 		order_operator =
 		#{orderOperator,jdbcType=VARCHAR},
 		order_feetype =
 		#{orderFeetype,jdbcType=INTEGER},
-		order_state =
-		#{orderState,jdbcType=INTEGER},
 		order_pay =
 		#{orderPay,jdbcType=DOUBLE},
 		order_starttime =
@@ -185,10 +193,13 @@
 		order_endtime =
 		#{orderEndtime,jdbcType=TIMESTAMP},
 		order_createtime =
-		#{orderCreatetime,jdbcType=TIMESTAMP}
+		#{orderCreatetime,jdbcType=TIMESTAMP},
+		order_state =
+		#{orderState,jdbcType=INTEGER}
 		where order_id =
 		#{orderId,jdbcType=INTEGER}
 	</update>
+
 	<select id="queryAllOrder" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
@@ -200,11 +211,12 @@
 			<if test="orderNumber!=null">
 				and order_number like concat("%",#{orderNumber},"%")
 			</if>
+			<if test="orderBandwidth">
+				and order_bandwidth like concat
+				("%",#{orderBandwidth},"%")
+			</if>
 			<if test="orderCustName!=null">
 				and order_cust_name like concat("%",#{orderCustName},"%")
-			</if>
-			<if test="orderOperator!=null">
-				and order_operator like concat("%",#{orderOperator},"%")
 			</if>
 			<if test="orderStarttime!=null">
 				and order_createtime >=#{orderStarttime}
@@ -212,13 +224,63 @@
 			<if test="orderEndtime!=null">
 				and order_createtime <![CDATA[<=]]>#{orderEndtime}
 			</if>
-			<if test="orderFeetype!=null">
-				and order_feetype=#{orderFeetype}
-			</if>
 			<if test="orderState!=null">
-				and order_state=#{orderState}
+				and order_state =#{orderState}
+			</if>
+			<if test="orderFeetype!=null">
+				and order_feetype =#{orderFeetype}
 			</if>
 		</where>
 		order by order_createtime desc
 	</select>
+
+	<!-- 定时维护订单状态 -->
+	<update id="updateOrderState">
+		UPDATE bus_order SET order_state = 0 WHERE now() <![CDATA[<=]]>
+		order_starttime;
+		UPDATE bus_order SET order_state = 1 WHERE now()
+		BETWEEN order_starttime AND order_endtime;
+		UPDATE bus_order SET
+		order_state = 2 WHERE now() <![CDATA[>=]]>
+		order_endtime;
+		UPDATE bus_order SET order_state = 3 WHERE
+		datediff(order_endtime,NOW()) BETWEEN 0 AND 3;
+	</update>
+
+	<!-- 按照特定订单号修改信息 -->
+		<update id="updateByOrderNumber"
+		parameterType="edu.jwj439.bus.entity.Order">
+		update bus_order
+		<set>
+			<if test="orderBandwidth != null">
+				order_bandwidth = #{orderBandwidth,jdbcType=VARCHAR},
+			</if>
+			<if test="orderCustName != null">
+				order_cust_name = #{orderCustName,jdbcType=VARCHAR},
+			</if>
+			<if test="orderOperator != null">
+				order_operator = #{orderOperator,jdbcType=VARCHAR},
+			</if>
+			<if test="orderFeetype != null">
+				order_feetype = #{orderFeetype,jdbcType=INTEGER},
+			</if>
+			<if test="orderPay != null">
+				order_pay = #{orderPay,jdbcType=DOUBLE},
+			</if>
+			<if test="orderStarttime != null">
+				order_starttime = #{orderStarttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderEndtime != null">
+				order_endtime = #{orderEndtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderCreatetime != null">
+				order_createtime = #{orderCreatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderState != null">
+				order_state = #{orderState,jdbcType=INTEGER},
+			</if>
+		</set>
+		where order_number = #{orderNumber,jdbcType=VARCHAR}
+	</update>
+
 </mapper>

@@ -19,4 +19,6 @@ public interface IOrderService {
     public Order queryOrderByorder_id(Integer order_id);
     
     List<Order> queryAllOrderForList (OrderVo orderVo);
+    
+    public void updateOrderState();
 }

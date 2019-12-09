@@ -10,7 +10,7 @@ public class BoardBand {
 
     private String bandSpeed;
 
-    private Double bandMouthly;
+    private Double bandMonthly;
 
     private Double bandYearly;
 
@@ -44,12 +44,12 @@ public class BoardBand {
         this.bandSpeed = bandSpeed == null ? null : bandSpeed.trim();
     }
 
-    public Double getBandMouthly() {
-        return bandMouthly;
+    public Double getBandMonthly() {
+        return bandMonthly;
     }
 
-    public void setBandMouthly(Double bandMouthly) {
-        this.bandMouthly = bandMouthly;
+    public void setBandMonthly(Double bandMonthly) {
+        this.bandMonthly = bandMonthly;
     }
 
     public Double getBandYearly() {

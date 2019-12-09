@@ -24,6 +24,8 @@ public interface ICustomerService {
      * @param customerVo
      */
     public void updateCustomer(CustomerVo customerVo);
+    
+    public void updateCustomerLevel(CustomerVo customerVo);
 
     /**
      * 删除客户

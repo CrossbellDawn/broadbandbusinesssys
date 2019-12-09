@@ -11,27 +11,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BusinessController {
     /**
      * 跳转到客户管理
+     * 
      * @return
      */
     @RequestMapping("toCustomerManager")
-    public String toCustomerManager(){
+    public String toCustomerManager() {
         return "business/customer/customerManager";
     }
-    
+
     /**
      * 跳转到宽带管理
+     * 
      * @return
      */
     @RequestMapping("toBoardBandManager")
-    public String toBoardBandManager(){
-    	return "business/boardband/boardbandManager";
+    public String toBoardBandManager() {
+        return "business/boardband/boardbandManager";
     }
+
     /**
      * 跳到订单管理
+     * 
      * @return
      */
     @RequestMapping("toOrderManager")
-    public String toOrderManager(){
-    	return "business/order/orderManager";
+    public String toOrderManager() {
+        return "business/order/orderManager";
+    }
+
+    /**
+     * 跳转到添加订单页面
+     * @return
+     */
+    @RequestMapping("toAddOrderPage")
+    public String toAddOrderPage() {
+        return "business/order/addOrderPage";
     }
 }

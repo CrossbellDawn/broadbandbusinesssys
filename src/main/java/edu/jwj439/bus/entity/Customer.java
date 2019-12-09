@@ -17,7 +17,7 @@ public class Customer {
 
     private String custMajor;
 
-    private String custLevel;
+    private Integer custLevel;
 
     private String custLinkman;
 
@@ -81,12 +81,12 @@ public class Customer {
         this.custMajor = custMajor == null ? null : custMajor.trim();
     }
 
-    public String getCustLevel() {
+    public Integer getCustLevel() {
         return custLevel;
     }
 
-    public void setCustLevel(String custLevel) {
-        this.custLevel = custLevel == null ? null : custLevel.trim();
+    public void setCustLevel(Integer custLevel) {
+        this.custLevel = custLevel;
     }
 
     public String getCustLinkman() {

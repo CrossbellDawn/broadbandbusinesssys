@@ -5,14 +5,14 @@
     <id column="band_id" jdbcType="INTEGER" property="bandId" />
     <result column="band_width" jdbcType="VARCHAR" property="bandWidth" />
     <result column="band_speed" jdbcType="VARCHAR" property="bandSpeed" />
-    <result column="band_mouthly" jdbcType="DOUBLE" property="bandMouthly" />
+    <result column="band_monthly" jdbcType="DOUBLE" property="bandMonthly" />
     <result column="band_yearly" jdbcType="DOUBLE" property="bandYearly" />
     <result column="band_desc" jdbcType="VARCHAR" property="bandDesc" />
     <result column="band_state" jdbcType="INTEGER" property="bandState" />
     <result column="band_createtime" jdbcType="TIMESTAMP" property="bandCreatetime" />
   </resultMap>
   <sql id="Base_Column_List">
-    band_id, band_width, band_speed, band_mouthly, band_yearly, band_desc, band_state, 
+    band_id, band_width, band_speed, band_monthly, band_yearly, band_desc, band_state, 
     band_createtime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -27,10 +27,10 @@
   </delete>
   <insert id="insert" parameterType="edu.jwj439.bus.entity.BoardBand">
     insert into bus_boardband (band_id, band_width, band_speed, 
-      band_mouthly, band_yearly, band_desc, 
+      band_monthly, band_yearly, band_desc, 
       band_state, band_createtime)
     values (#{bandId,jdbcType=INTEGER}, #{bandWidth,jdbcType=VARCHAR}, #{bandSpeed,jdbcType=VARCHAR}, 
-      #{bandMouthly,jdbcType=DOUBLE}, #{bandYearly,jdbcType=DOUBLE}, #{bandDesc,jdbcType=VARCHAR}, 
+      #{bandMonthly,jdbcType=DOUBLE}, #{bandYearly,jdbcType=DOUBLE}, #{bandDesc,jdbcType=VARCHAR}, 
       #{bandState,jdbcType=INTEGER}, #{bandCreatetime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="edu.jwj439.bus.entity.BoardBand">
@@ -45,8 +45,8 @@
       <if test="bandSpeed != null">
         band_speed,
       </if>
-      <if test="bandMouthly != null">
-        band_mouthly,
+      <if test="bandMonthly != null">
+        band_monthly,
       </if>
       <if test="bandYearly != null">
         band_yearly,
@@ -71,8 +71,8 @@
       <if test="bandSpeed != null">
         #{bandSpeed,jdbcType=VARCHAR},
       </if>
-      <if test="bandMouthly != null">
-        #{bandMouthly,jdbcType=DOUBLE},
+      <if test="bandMonthly != null">
+        #{bandMonthly,jdbcType=DOUBLE},
       </if>
       <if test="bandYearly != null">
         #{bandYearly,jdbcType=DOUBLE},
@@ -97,8 +97,8 @@
       <if test="bandSpeed != null">
         band_speed = #{bandSpeed,jdbcType=VARCHAR},
       </if>
-      <if test="bandMouthly != null">
-        band_mouthly = #{bandMouthly,jdbcType=DOUBLE},
+      <if test="bandMonthly != null">
+        band_monthly = #{bandMonthly,jdbcType=DOUBLE},
       </if>
       <if test="bandYearly != null">
         band_yearly = #{bandYearly,jdbcType=DOUBLE},
@@ -119,7 +119,7 @@
     update bus_boardband
     set band_width = #{bandWidth,jdbcType=VARCHAR},
       band_speed = #{bandSpeed,jdbcType=VARCHAR},
-      band_mouthly = #{bandMouthly,jdbcType=DOUBLE},
+      band_monthly = #{bandMonthly,jdbcType=DOUBLE},
       band_yearly = #{bandYearly,jdbcType=DOUBLE},
       band_desc = #{bandDesc,jdbcType=VARCHAR},
       band_state = #{bandState,jdbcType=INTEGER},

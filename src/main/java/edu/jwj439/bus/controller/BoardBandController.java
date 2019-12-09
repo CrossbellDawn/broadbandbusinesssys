@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.jwj439.bus.service.IBoardBandService;
 import edu.jwj439.bus.vo.BoardBandVo;
-import edu.jwj439.sys.entity.User;
 import edu.jwj439.sys.utils.DataGridView;
 import edu.jwj439.sys.utils.ResultObj;
-import edu.jwj439.sys.utils.WebUtils;
 
 @RestController
 @RequestMapping("boardband")
@@ -27,7 +25,6 @@ public class BoardBandController {
      */
     @RequestMapping("loadAllBoardBand")
     public DataGridView loadAllBoardBand(BoardBandVo BoardBandVo) {
-        System.out.println(this.boardBandService.queryAllBoardBand(BoardBandVo));
         return this.boardBandService.queryAllBoardBand(BoardBandVo);
     }
 
@@ -41,7 +38,6 @@ public class BoardBandController {
     public ResultObj addBoardBand(BoardBandVo BoardBandVo) {
         try {
             BoardBandVo.setBandCreatetime(new Date());
-            User user=(User)WebUtils.getHttpSession().getAttribute("user");
             this.boardBandService.addBoardBand(BoardBandVo);
             return ResultObj.ADD_SUCCESS;
         } catch (Exception e) {

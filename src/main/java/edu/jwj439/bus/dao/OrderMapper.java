@@ -16,6 +16,10 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+    
+    int updateByOrderNumber(Order record);
 
     List<Order> queryAllOrder(OrderVo orderVo);
+    
+    int updateOrderState();
 }
