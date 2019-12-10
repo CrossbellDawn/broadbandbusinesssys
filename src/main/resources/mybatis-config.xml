@@ -6,10 +6,6 @@
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
-	<typeAliases>
-		<package name="edu.jwj439.sys.entity" />
-		<package name="edu.jwj439.bus.entity" />
-	</typeAliases>
 	<plugins>
 		<!--注意这里要写成PageInterceptor, 5.0之前的版本都是写PageHelper, 5.0之后要换成PageInterceptor -->
 		<plugin interceptor="com.github.pagehelper.PageInterceptor">

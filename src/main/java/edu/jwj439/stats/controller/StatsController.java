@@ -1,11 +1,23 @@
 package edu.jwj439.stats.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import edu.jwj439.bus.entity.Customer;
+import edu.jwj439.bus.service.ICustomerService;
+import edu.jwj439.bus.vo.CustomerVo;
 import edu.jwj439.stats.service.IStatsService;
+import edu.jwj439.stats.utils.ExprotCustomerUtil;
 
 @RequestMapping("stats")
 @Controller
@@ -13,6 +25,9 @@ public class StatsController {
     
     @Autowired
     private IStatsService statsService;
+    
+    @Autowired
+    private ICustomerService customerService;
     /**
      * 跳转到公司年度业务统计
      * @return
@@ -37,4 +52,31 @@ public class StatsController {
         }
         return entities;
     }
+    
+    /**
+     * 导出客户数据
+     */
+    @RequestMapping("exportCustomer")
+    public ResponseEntity<Object> exportCustomer(CustomerVo customerVo,HttpServletResponse response) {
+        List<Customer> customers=customerService.queryAllCustomerForList(customerVo);
+        String fileName="客户数据.xls";
+        String sheetName="客户数据";
+        ByteArrayOutputStream bos=ExprotCustomerUtil.exportCustomer(customers,sheetName);
+        
+        try {
+            fileName=URLEncoder.encode(fileName,"UTF-8");//处理文件名乱码
+            //创建封装响应头信息的对象
+            HttpHeaders header=new HttpHeaders();
+            //封装响应内容类型(APPLICATION_OCTET_STREAM 响应的内容不限定)
+            header.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            //设置下载的文件的名称
+            header.setContentDispositionFormData("attachment", fileName);
+            return new ResponseEntity<Object>(bos.toByteArray(), header, HttpStatus.CREATED);
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

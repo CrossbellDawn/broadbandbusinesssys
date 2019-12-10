@@ -3,7 +3,7 @@ package edu.jwj439.sys.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
-import edu.jwj439.sys.dao.ILogInfoDao;
+import edu.jwj439.sys.dao.LogInfoMapper;
 import edu.jwj439.sys.entity.LogInfo;
 import edu.jwj439.sys.service.ILogInfoService;
 import edu.jwj439.sys.utils.DataGridView;
@@ -20,7 +20,7 @@ import java.util.List;
 public class LogInfoServiceImpl implements ILogInfoService {
 
 	@Autowired
-	private ILogInfoDao logInfoDao;
+	private LogInfoMapper logInfoDao;
 
 	/**
 	 * 查询日志

@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import edu.jwj439.sys.dao.IMenuDao;
+import edu.jwj439.sys.dao.MenuMapper;
 import edu.jwj439.sys.entity.Menu;
 
 public class TestInitMenu {
@@ -12,7 +12,7 @@ public class TestInitMenu {
     public void MenuInitTest() {
         ApplicationContext context=new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
         
-        IMenuDao menuDao = context.getBean(IMenuDao.class);
+        MenuMapper menuDao = context.getBean(MenuMapper.class);
         menuDao.insert(new Menu(1, 0, "校园宽带业务系统", null, 1, null, "&#xe68e;", 1));
         menuDao.insert(new Menu(2, 1, "基础管理", null, 1, null, "&#xe653;", 1));
         menuDao.insert(new Menu(3, 1, "业务管理", null, 0, null, "&#xe663;", 1));

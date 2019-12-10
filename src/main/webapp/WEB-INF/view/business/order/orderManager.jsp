@@ -386,7 +386,7 @@
 												} else if (layEvent === 'edit') { //编辑
 													openUpdateRent(data);
 												} else if (layEvent === 'exportRent') {
-													window.location.href = "${ctx}/stat/exportOrder.action?OrderId="
+													window.location.href = "${ctx}/stats/exportOrder.action?OrderId="
 															+ data.OrderId;
 												}else if (layEvent === 'renew'){
 													

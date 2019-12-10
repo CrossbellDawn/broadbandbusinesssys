@@ -398,7 +398,7 @@
 			//导出
 			$("#doExport").click(function () {
 				var params = $("#searchFrm").serialize();
-				window.location.href = "${ctx}/stat/exportCustomer.action?" + params;
+				window.location.href = "${ctx}/stats/exportCustomer.action?" + params;
 			});
 
 			//监听头部工具栏事件

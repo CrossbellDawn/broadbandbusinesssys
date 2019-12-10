@@ -1,23 +1,21 @@
 package edu.jwj439.sys.service.impl;
 
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-
-import edu.jwj439.sys.dao.INewsDao;
+import edu.jwj439.sys.dao.NewsMapper;
 import edu.jwj439.sys.entity.News;
 import edu.jwj439.sys.service.INewsService;
 import edu.jwj439.sys.utils.DataGridView;
 import edu.jwj439.sys.vo.NewsVo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class NewsServiceImpl implements INewsService {
 
 	@Autowired
-	private INewsDao newsDao;
+	private NewsMapper newsMapper;
 
 	/**
 	 * 查询所有
@@ -28,7 +26,7 @@ public class NewsServiceImpl implements INewsService {
 	@Override
 	public DataGridView queryAllNews(NewsVo newsVo) {
 		Page<Object> page = PageHelper.startPage(newsVo.getPage(), newsVo.getLimit());
-		List<News> data = this.newsDao.queryAllNews(newsVo);
+		List<News> data = this.newsMapper.queryAllNews(newsVo);
 		return new DataGridView(page.getTotal(), data);
 	}
 
@@ -39,7 +37,7 @@ public class NewsServiceImpl implements INewsService {
 	 */
 	@Override
 	public void addNews(NewsVo newsVo) {
-		this.newsDao.insertSelective(newsVo);
+		this.newsMapper.insertSelective(newsVo);
 	}
 
 	/**
@@ -49,7 +47,7 @@ public class NewsServiceImpl implements INewsService {
 	 */
 	@Override
 	public void deleteNews(Integer newsid) {
-		this.newsDao.deleteByPrimaryKey(newsid);
+		this.newsMapper.deleteByPrimaryKey(newsid);
 	}
 
 	/**
@@ -71,7 +69,7 @@ public class NewsServiceImpl implements INewsService {
 	 */
 	@Override
 	public void updateNews(NewsVo newsVo) {
-		this.newsDao.updateByPrimaryKeySelective(newsVo);
+		this.newsMapper.updateByPrimaryKeySelective(newsVo);
 	}
 
 	/**
@@ -82,11 +80,11 @@ public class NewsServiceImpl implements INewsService {
 	 */
 	@Override
 	public News queryNewsById(Integer id) {
-		return this.newsDao.selectByPrimaryKey(id);
+		return this.newsMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
 	public void addNewsWithOrderState() {
-		this.newsDao.insertNewsWithOrderState();
+		this.newsMapper.insertNewsWithOrderState();
 	}
 }

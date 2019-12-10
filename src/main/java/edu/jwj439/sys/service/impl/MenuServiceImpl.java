@@ -3,7 +3,7 @@ package edu.jwj439.sys.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
-import edu.jwj439.sys.dao.IMenuDao;
+import edu.jwj439.sys.dao.MenuMapper;
 import edu.jwj439.sys.entity.Menu;
 import edu.jwj439.sys.service.IMenuService;
 import edu.jwj439.sys.utils.DataGridView;
@@ -17,7 +17,7 @@ import java.util.List;
 public class MenuServiceImpl implements IMenuService {
 
 	@Autowired
-	private IMenuDao menuDao;
+	private MenuMapper menuDao;
 
 	/**
 	 * 查询所有菜单返回

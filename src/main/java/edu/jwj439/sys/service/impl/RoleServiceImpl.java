@@ -1,30 +1,29 @@
 package edu.jwj439.sys.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import edu.jwj439.sys.constast.SysConstast;
-import edu.jwj439.sys.dao.IMenuDao;
-import edu.jwj439.sys.dao.IRoleDao;
+import edu.jwj439.sys.dao.MenuMapper;
+import edu.jwj439.sys.dao.RoleMapper;
 import edu.jwj439.sys.entity.Menu;
 import edu.jwj439.sys.entity.Role;
 import edu.jwj439.sys.service.IRoleService;
 import edu.jwj439.sys.utils.DataGridView;
 import edu.jwj439.sys.utils.TreeNode;
 import edu.jwj439.sys.vo.RoleVo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class RoleServiceImpl implements IRoleService {
 
 	@Autowired
-	private IRoleDao roleDao;
+	private RoleMapper roleMapper;
 
 	@Autowired
-	private IMenuDao menuDao;
+	private MenuMapper menuDao;
 
 	/**
 	 * 查询所有菜单返回
@@ -34,7 +33,7 @@ public class RoleServiceImpl implements IRoleService {
 	 */
 	@Override
 	public List<Role> queryAllRoleForList(RoleVo roleVo) {
-		return roleDao.queryAllRole(roleVo);
+		return roleMapper.queryAllRole(roleVo);
 	}
 
 	/**
@@ -44,7 +43,7 @@ public class RoleServiceImpl implements IRoleService {
 	 */
 	@Override
 	public List<Role> queryRoleByUserIdForList(RoleVo roleVo, Integer userId) {
-		return roleDao.queryAllRole(roleVo);
+		return roleMapper.queryAllRole(roleVo);
 	}
 
 	/**
@@ -56,7 +55,7 @@ public class RoleServiceImpl implements IRoleService {
 	@Override
 	public DataGridView queryAllRole(RoleVo roleVo) {
 		Page<Object> page = PageHelper.startPage(roleVo.getPage(), roleVo.getLimit());
-		List<Role> data = this.roleDao.queryAllRole(roleVo);
+		List<Role> data = this.roleMapper.queryAllRole(roleVo);
 		return new DataGridView(page.getTotal(), data);
 	}
 
@@ -67,7 +66,7 @@ public class RoleServiceImpl implements IRoleService {
 	 */
 	@Override
 	public void addRole(RoleVo roleVo) {
-		this.roleDao.insertSelective(roleVo);
+		this.roleMapper.insertSelective(roleVo);
 	}
 
 	/**
@@ -77,7 +76,7 @@ public class RoleServiceImpl implements IRoleService {
 	 */
 	@Override
 	public void updateRole(RoleVo roleVo) {
-		this.roleDao.updateByPrimaryKeySelective(roleVo);
+		this.roleMapper.updateByPrimaryKeySelective(roleVo);
 	}
 
 	/**
@@ -88,11 +87,11 @@ public class RoleServiceImpl implements IRoleService {
 	@Override
 	public void deleteRole(Integer roleid) {
 		// 删除角色表的数据
-		this.roleDao.deleteByPrimaryKey(roleid);
+		this.roleMapper.deleteByPrimaryKey(roleid);
 		// 根据角色id删除sys_role_menu里面的数据
-		this.roleDao.deleteRoleMenuByRid(roleid);
+		this.roleMapper.deleteRoleMenuByRid(roleid);
 		// 根据角色id删除sys_role_user里面的数据
-		this.roleDao.deleteRoleUserByRid(roleid);
+		this.roleMapper.deleteRoleUserByRid(roleid);
 
 	}
 
@@ -141,10 +140,10 @@ public class RoleServiceImpl implements IRoleService {
 		Integer rid = roleVo.getRoleid();
 		Integer[] mids = roleVo.getIds();
 		// 根据rid删除sys_role_menu里面的所有数据
-		this.roleDao.deleteRoleMenuByRid(rid);
+		this.roleMapper.deleteRoleMenuByRid(rid);
 		// 保存角色和菜单的关系
 		for (Integer mid : mids) {
-			this.roleDao.insertRoleMenu(rid, mid);
+			this.roleMapper.insertRoleMenu(rid, mid);
 		}
 	}
 }

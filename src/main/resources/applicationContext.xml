@@ -38,28 +38,24 @@
 	<bean id="sqlSessonFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<!-- 自动扫描mappers.xml文件 -->
-		<property name="mapperLocations"
-			value="classpath:/mappers/*/*.xml"></property>
 		<!-- mybatis配置文件 -->
 		<property name="configLocation"
 			value="classpath:mybatis-config.xml"></property>
+		<!-- 自动扫描mappers.xml文件 -->
+		<property name="mapperLocations"
+			value="classpath:/mappers/*/*.xml"></property>
 		<!-- 注入分页插件 -->
-
 	</bean>
-
-	<!--开启注解的扫描，希望处理service和dao，controller不需要Spring框架去处理 -->
-	<context:component-scan
-		base-package="edu.jwj439">
-		<!--配置哪些注解不扫描 -->
-		<context:exclude-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
-	</context:component-scan>
 	<!--配置IAccountdao接口所在包 -->
-	<bean id="mapperScanner"
-		class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<!-- 扫描mapper接口 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<property name="sqlSessionFactoryBeanName" value="sqlSessonFactory"></property>
+		<!-- 注入mapper接口所在的包 注意多个包的情况的配置 -->
+		<!--注入mapper接口所在的包 -->
 		<property name="basePackage"
-			value="edu.jwj439.sys.dao,edu.jwj439.bus.dao,edu.jwj439.stats.dao" />
+			value="edu.jwj439.sys.dao,edu.jwj439.bus.dao,edu.jwj439.stats.dao">
+		</property>
+		<!-- 注入sqlSessionFactory -->
 	</bean>
 
 	<!-- 配置Service层相关 -->

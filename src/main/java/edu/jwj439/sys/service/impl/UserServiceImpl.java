@@ -1,32 +1,31 @@
 package edu.jwj439.sys.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import edu.jwj439.sys.constast.SysConstast;
-import edu.jwj439.sys.dao.IRoleDao;
-import edu.jwj439.sys.dao.IUserDao;
+import edu.jwj439.sys.dao.RoleMapper;
+import edu.jwj439.sys.dao.UserMapper;
 import edu.jwj439.sys.entity.Role;
 import edu.jwj439.sys.entity.User;
 import edu.jwj439.sys.service.IUserService;
 import edu.jwj439.sys.utils.DataGridView;
 import edu.jwj439.sys.vo.UserVo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class UserServiceImpl implements IUserService {
 
 	@Autowired
-	private IUserDao userDao;
+	private UserMapper userDao;
 
 	@Autowired
-	private IRoleDao roleDao;
+	private RoleMapper roleMapper;
 
 	/**
 	 * 用户登陆
@@ -90,7 +89,7 @@ public class UserServiceImpl implements IUserService {
 	public void deleteUser(Integer userid) {
 		this.userDao.deleteByPrimaryKey(userid);
 		// 根据用户id删除sys_role_user里面的数据
-		this.roleDao.deleteRoleUserByUid(userid);
+		this.roleMapper.deleteRoleUserByUid(userid);
 	}
 
 	/**
@@ -131,9 +130,9 @@ public class UserServiceImpl implements IUserService {
 		// 1.查询所有可用的角色
 		Role role = new Role();
 		role.setAvailable(SysConstast.AVAILABLE_TRUE);
-		List<Role> allRole = this.roleDao.queryAllRole(role);
+		List<Role> allRole = this.roleMapper.queryAllRole(role);
 		// 2.根据用户ID查询已拥有的角色
-		List<Role> userRole = this.roleDao.queryRoleByUid(SysConstast.AVAILABLE_TRUE, userid);
+		List<Role> userRole = this.roleMapper.queryRoleByUid(SysConstast.AVAILABLE_TRUE, userid);
 
 		List<Map<String, Object>> data = new ArrayList<>();
 
@@ -166,7 +165,7 @@ public class UserServiceImpl implements IUserService {
 		Integer userid = userVo.getUserid();
 		Integer[] roleIds = userVo.getIds();
 		// 根据用户id删除sys_role_user里面的数据
-		this.roleDao.deleteRoleUserByUid(userid);
+		this.roleMapper.deleteRoleUserByUid(userid);
 		// 保存关系
 		if (roleIds != null && roleIds.length > 0) {
 			for (Integer rid : roleIds) {
