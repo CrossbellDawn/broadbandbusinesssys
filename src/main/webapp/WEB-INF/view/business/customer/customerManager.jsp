@@ -13,7 +13,7 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
-	 
+
 	<link rel="stylesheet" href="${ctx }/static/layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="${ctx }/static/css/public.css" media="all" />
 </head>
@@ -217,8 +217,18 @@
 						<input type="text" name="custUserId" autocomplete="off" class="layui-input">
 					</div>
 				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">客户级别:</label>
+					<div class="layui-input-inline">
+						<select name="custLevel" lay-filter="custMajor">
+							<option value="" selected=""></option>
+							<option value="1">包年用户</option>
+							<option value="0">包月用户</option>
+						</select>
+					</div>
+				</div>
 			</div>
-			<div class="layui-form-item">
+			<div class="layui-form-item" >
 				<div class="layui-inline">
 					<label class="layui-form-label">客户来源:</label>
 					<div class="layui-input-inline">
@@ -232,17 +242,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<div class="layui-inline">
-					<label class="layui-form-label">客户级别:</label>
-					<div class="layui-input-inline">
-						<select name="custLevel" lay-filter="custMajor">
-							<option value="" selected=""></option>
-							<option value="1">包年用户</option>
-							<option value="0">包月用户</option>
-						</select>
-					</div>
-				</div>
+			<div class="layui-form-item" style="text-align: center;padding-right: 80px;">
+
 
 				<div class="layui-inline" style="text-align: center;padding-left:80px">
 					<button type="button"
@@ -306,16 +307,6 @@
 							align: 'center',
 							width: '80'
 						}, {
-							field: 'custUserId',
-							title: '负责人',
-							align: 'center',
-							width: '80'
-						}, {
-							field: 'custCreateId',
-							title: '创建人',
-							align: 'center',
-							width: '80'
-						}, {
 							field: 'custSource',
 							title: '信息来源',
 							align: 'center',
@@ -356,7 +347,7 @@
 							width: '80'
 						}, {
 							field: 'custAddress',
-							title: '联系地址',
+							title: '宿舍楼号',
 							align: 'center',
 							width: '140'
 						}, {
@@ -454,7 +445,7 @@
 					type: 1,
 					title: '修改客户',
 					content: $("#saveOrUpdateDiv"),
-					area: ['800px', '320px'],
+					area: ['760px', '320px'],
 					success: function (index) {
 						form.val("dataFrm", data);
 						url = "${ctx}/customer/updateCustomer.action";

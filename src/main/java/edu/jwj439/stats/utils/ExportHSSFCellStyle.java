@@ -29,10 +29,10 @@ public class ExportHSSFCellStyle {
         // 设置字体
         HSSFFont font = workbook.createFont();
         font.setBold(true);// 是否加粗
-        font.setItalic(true);// 是否斜体
-        font.setFontHeightInPoints((short) 20); // 设置字体大小
-        font.setColor(HSSFColor.HSSFColorPredefined.DARK_YELLOW.getIndex());// 设置颜色
-        font.setFontName("黑体");// 设置字体
+        font.setItalic(false);// 是否斜体
+        font.setFontHeightInPoints((short) 18); // 设置字体大小
+        font.setColor(HSSFColor.HSSFColorPredefined.BLACK.getIndex());// 设置颜色
+        font.setFontName("微软雅黑");// 设置字体
         style.setFont(font);
 
         return style;
@@ -47,9 +47,10 @@ public class ExportHSSFCellStyle {
         // 设置字体
         HSSFFont font = workbook.createFont();
         font.setBold(true);// 是否加粗
+        font.setItalic(true);// 是否斜体
         font.setFontHeightInPoints((short) 25); // 设置字体大小
-        font.setColor(HSSFColor.HSSFColorPredefined.SKY_BLUE.getIndex());// 设置颜色
-        font.setFontName("黑体");// 设置字体
+        font.setColor(HSSFColor.HSSFColorPredefined.GREY_50_PERCENT.getIndex());// 设置颜色
+        font.setFontName("微软雅黑");// 设置字体
         style.setFont(font);
         return style;
     }
@@ -65,8 +66,8 @@ public class ExportHSSFCellStyle {
         HSSFFont font = workbook.createFont();
         font.setBold(true);// 是否加粗
         font.setFontHeightInPoints((short) 35); // 设置字体大小
-        font.setColor(HSSFColor.HSSFColorPredefined.RED.getIndex());// 设置颜色
-        font.setFontName("华文行楷");// 设置字体
+        font.setColor(HSSFColor.HSSFColorPredefined.BLACK.getIndex());// 设置颜色
+        font.setFontName("微软雅黑");// 设置字体
         style.setFont(font);
         return style;
     }

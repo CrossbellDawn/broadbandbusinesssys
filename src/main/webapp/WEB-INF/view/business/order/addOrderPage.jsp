@@ -13,7 +13,7 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
-	 
+
 	<link rel="stylesheet" href="${ctx }/static/layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="${ctx }/static/css/public.css" media="all" />
 </head>
@@ -82,7 +82,7 @@
 					<label class="layui-form-label">客户姓名:</label>
 					<div class="layui-input-inline">
 						<select name="orderCustName" lay-verify="required" class="layui-input"
-							lay-filter="orderCustName" id="orderCustName">
+							lay-filter="orderCustName" id="orderCustName" lay-search>
 							<option value=""></option>
 						</select>
 					</div>
@@ -132,7 +132,7 @@
 					<button type="button"
 						class="layui-btn layui-btn-normal layui-btn-md layui-icon layui-icon-release layui-btn-radius"
 						lay-filter="doSubmit" lay-submit="">提交</button>
-					<button type="reset"
+					<button type="button" lay-filter="reset" id="reset"
 						class="layui-btn layui-btn-warm layui-btn-md layui-icon layui-icon-refresh layui-btn-radius">重置
 					</button>
 				</div>
@@ -152,7 +152,18 @@
 			var laydate = layui.laydate;
 			laydate.render({
 				elem: '#orderStarttime',
-				type: 'datetime'
+				type: 'datetime',
+				done: function (value, date, endDate) {
+					var orderFeetype = $("#orderFeetype").val();
+					$.post("${ctx}/order/getRenewDate.action", {
+						orderFeetype: orderFeetype,
+						orderStarttime: value
+					}, function (order) {
+						form.val("dataFrm", {
+							orderEndtime: order.orderEndtime
+						});
+					})
+				}
 			});
 			laydate.render({
 				elem: '#orderEndtime',
@@ -265,13 +276,9 @@
 					openUpdateBoardBand(data);
 				}
 			});
-
-
-
 			var mainIndex;
 			//打开创建订单layer
 			function openUpdateBoardBand(data) {
-
 				mainIndex = layer.open({
 					type: 1,
 					title: '创建订单',
@@ -280,15 +287,26 @@
 					success: function (index) {
 						var orderBandwidth = data.bandWidth;
 						var orderPay = data.bandYearly;
-						console.log(data);
-						$.get("${ctx}/order/initOrderForm.action", {
+						var orderStarttime = 1;
+						//绑定复位按钮
+						$("#reset").click(function () {
+							$.post("${ctx}/order/initOrderForm.action", {
+								orderBandwidth: orderBandwidth,
+								orderFeetype: 1,
+								orderPay: orderPay,
+							}, function (obj) {
+								form.val("dataFrm", obj)
+								orderStarttime = obj.orderStarttime;
+							});
+						});
+						$.post("${ctx}/order/initOrderForm.action", {
 							orderBandwidth: orderBandwidth,
 							orderFeetype: 1,
 							orderPay: orderPay,
 						}, function (obj) {
 							form.val("dataFrm", obj)
+							orderStarttime = obj.orderStarttime;
 						});
-						//计费功能联动
 						form.on('radio(orderFeetype)', function (feetype) {
 							console.log(feetype.value); //被点击的radio的value值
 							var orderFeetype = feetype.value;
@@ -300,17 +318,23 @@
 							form.val("dataFrm", {
 								orderPay: orderPay
 							});
-						});
+							$.post("${ctx}/order/getRenewDate.action", {
+								orderFeetype: orderFeetype,
+								orderStarttime: orderStarttime
+							}, function (order) {
+								form.val("dataFrm", {
+									orderEndtime: order.orderEndtime
+								});
+							})
 
+						});
 					}
 				});
 			}
 			//监听客户名选择框
 			$.get("${ctx}/customer/loadAllCustomer.action?page=1&limit=10", {},
 				function (obj) {
-					console.log("aaa");
 					$.each(obj.data, function (index, item) {
-						console.log(item);
 						$('#orderCustName').append(new Option(item
 							.custName)); // 下拉菜单里添加元素
 					});
@@ -329,7 +353,6 @@
 					tableIns.reload();
 				})
 			});
-
 		});
 	</script>
 </body>

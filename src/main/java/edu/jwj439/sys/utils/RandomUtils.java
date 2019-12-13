@@ -77,14 +77,14 @@ public class RandomUtils {
         cd.setTime(date);
         cd.add(Calendar.MONTH, 1);
         cd.set(Calendar.DAY_OF_MONTH,1);
-        cd.set(Calendar.HOUR_OF_DAY, 0); 
-        cd.set(Calendar.MINUTE, 0); 
-        cd.set(Calendar.SECOND,0);
-        cd.set(Calendar.MILLISECOND, 0);
+        /*
+                    * cd.set(Calendar.HOUR_OF_DAY, 0); cd.set(Calendar.MINUTE, 0);
+                    * cd.set(Calendar.SECOND,0); cd.set(Calendar.MILLISECOND, 0);
+                    */
         return cd.getTime();
     }
     /**
-     * 计算入参包月的最后一天
+     * 获取入参包月的结束时间
      * @param date
      * @return
      */
@@ -92,15 +92,15 @@ public class RandomUtils {
         Calendar cd = Calendar.getInstance();
         cd.setTime(date);
         cd.add(Calendar.MONTH, 1);
-        cd.set(Calendar.DAY_OF_MONTH,1);
-        cd.set(Calendar.HOUR_OF_DAY, 0); 
-        cd.set(Calendar.MINUTE, 0); 
-        cd.set(Calendar.SECOND,0);
-        cd.set(Calendar.MILLISECOND, 0);
+        //cd.set(Calendar.DAY_OF_MONTH,1);
+        /*
+         * cd.set(Calendar.HOUR_OF_DAY, 0); cd.set(Calendar.MINUTE, 0); cd.set(Calendar.SECOND,0);
+         * cd.set(Calendar.MILLISECOND, 0);
+         */
         return cd.getTime();
     }
     /**
-     * 计算入参包年的最后一天
+     * 获取入参包年的结束时间
      * @param date
      * @return
      */
@@ -108,11 +108,11 @@ public class RandomUtils {
         Calendar cd = Calendar.getInstance();
         cd.setTime(date);
         cd.add(Calendar.YEAR, 1);
-        cd.set(Calendar.DAY_OF_MONTH,1);
-        cd.set(Calendar.HOUR_OF_DAY, 0); 
-        cd.set(Calendar.MINUTE, 0); 
-        cd.set(Calendar.SECOND,0);
-        cd.set(Calendar.MILLISECOND, 0);
+        //cd.set(Calendar.DAY_OF_MONTH,1);
+        /*
+         * cd.set(Calendar.HOUR_OF_DAY, 0); cd.set(Calendar.MINUTE, 0); cd.set(Calendar.SECOND,0);
+         * cd.set(Calendar.MILLISECOND, 0);
+         */
         return cd.getTime();
         
     }

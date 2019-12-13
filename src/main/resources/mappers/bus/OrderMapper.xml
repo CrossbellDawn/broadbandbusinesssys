@@ -231,7 +231,7 @@
 				and order_feetype =#{orderFeetype}
 			</if>
 		</where>
-		order by order_createtime desc
+		order by order_endtime desc
 	</select>
 
 	<!-- 定时维护订单状态 -->

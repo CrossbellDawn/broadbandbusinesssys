@@ -50,4 +50,9 @@
 		sum(order_pay) from bus_order where
 		DATE_FORMAT(order_createtime,"%Y%m")=concat(#{value},'12')
     </select>
+    
+    <!--查询业务员年度业绩-->
+    <select id="queryOpernameYearGradeStat" resultType="edu.jwj439.stats.entity.BaseEntity">
+      select order_operator as name,sum(order_pay) as value from bus_order where DATE_FORMAT(order_createtime,"%Y")=#{value} GROUP BY order_operator
+    </select>
 </mapper>

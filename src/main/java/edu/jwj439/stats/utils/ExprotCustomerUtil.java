@@ -24,7 +24,6 @@ public class ExprotCustomerUtil {
      * @param response
      * @return
      */
-    @SuppressWarnings("deprecation")
     public static ByteArrayOutputStream exportCustomer(List<Customer> customers, String sheetName) {
         // 一组装excel文档
         // 1,创建工作簿
@@ -114,7 +113,7 @@ public class ExprotCustomerUtil {
             // 9.9创建列邮编
             HSSFCell row_zipcode = row.createCell(8);
             row_zipcode.setCellStyle(baseStyle);
-            row_zipcode.setCellValue(customer.getCustLinkman());
+            row_zipcode.setCellValue(customer.getCustZipcode());
             // 9.10创建列地址
             HSSFCell row_address = row.createCell(9);
             row_address.setCellStyle(baseStyle);

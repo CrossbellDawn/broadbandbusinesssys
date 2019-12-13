@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.jwj439.sys.dao.NewsMapper">
-	<resultMap id="BaseResultMap" type="edu.jwj439.sys.entity.News">
+	<resultMap id="BaseResultMap"
+		type="edu.jwj439.sys.entity.News">
 		<id column="id" jdbcType="INTEGER" property="id" />
 		<result column="title" jdbcType="VARCHAR" property="title" />
 		<result column="content" jdbcType="VARCHAR" property="content" />
-		<result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
-		<result column="opername" jdbcType="VARCHAR" property="opername" />
+		<result column="createtime" jdbcType="TIMESTAMP"
+			property="createtime" />
+		<result column="opername" jdbcType="VARCHAR"
+			property="opername" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		id, title, content, createtime, opername
 	</sql>
-	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
-		resultMap="BaseResultMap">
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from sys_news
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
 		delete from
 		sys_news
 		where id = #{id,jdbcType=INTEGER}
@@ -32,7 +36,8 @@
 		#{content,jdbcType=VARCHAR},
 		#{createtime,jdbcType=TIMESTAMP}, #{opername,jdbcType=VARCHAR})
 	</insert>
-	<insert id="insertSelective" parameterType="edu.jwj439.sys.entity.News">
+	<insert id="insertSelective"
+		parameterType="edu.jwj439.sys.entity.News">
 		insert into sys_news
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -69,7 +74,8 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="edu.jwj439.sys.entity.News">
+	<update id="updateByPrimaryKeySelective"
+		parameterType="edu.jwj439.sys.entity.News">
 		update sys_news
 		<set>
 			<if test="title != null">
@@ -87,7 +93,8 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="edu.jwj439.sys.entity.News">
+	<update id="updateByPrimaryKey"
+		parameterType="edu.jwj439.sys.entity.News">
 		update sys_news
 		set title = #{title,jdbcType=VARCHAR},
 		content =
@@ -123,12 +130,11 @@
 
 	<insert id="insertNewsWithOrderState">
 		insert into sys_news (id, title, content,createtime,opername)
-		values (null,
-		concat("【续费提醒】用户",(select order_cust_name from bus_order where order_state = 3),"的订单将要到期"),
-		concat("
-		 <![CDATA[<p>]]>[订单编号]",(select order_number from bus_order where order_state=3),"<![CDATA[</p>]]>
-		","
-		<![CDATA[<p>]]>[到期时间]",(select order_endtime from bus_order where order_state=3),"<![CDATA[</p>]]>
-		"),NOW(),"system")
+		select
+		null,concat("【续费提醒】用户",order_cust_name,"的订单剩余",DATEDIFF(order_endtime,NOW())
+		,"天"),
+		concat("<![CDATA[<p>]]>[订单编号]",order_number
+		,"<![CDATA[</p>]]>","<![CDATA[<p>]]>[到期时间]",(order_endtime),"<![CDATA[</p>]]>"),NOW(),"system"
+		from bus_order where order_state = 3
 	</insert>
 </mapper>
