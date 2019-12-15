@@ -279,7 +279,7 @@
 			function openUpdateUser(data){
 				mainIndex=layer.open({
 					type:1,
-					title:'修改用户',
+					title:'修改角色',
 					content:$("#saveOrUpdateDiv"),
 					area:['800px','400px'],
 					success:function(index){

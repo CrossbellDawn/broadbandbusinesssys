@@ -332,7 +332,7 @@
 				});
 			}
 			//监听客户名选择框
-			$.get("${ctx}/customer/loadAllCustomer.action?page=1&limit=10", {},
+			$.get("${ctx}/customer/loadAllCustomer.action?page=1&limit=9999", {},
 				function (obj) {
 					$.each(obj.data, function (index, item) {
 						$('#orderCustName').append(new Option(item

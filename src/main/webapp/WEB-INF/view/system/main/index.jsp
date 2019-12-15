@@ -125,7 +125,7 @@
         </div>
         <!-- 底部 -->
         <div class="layui-footer footer">
-            <p><span>copyright @2019 Jwj</span></p>
+            <p><span>copyright @2019 Jwj439 GH校园宽带业务管理系统</span></p>
         </div>
     </div>
 
