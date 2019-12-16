@@ -5,7 +5,7 @@
  Source Server Type    : MySQL
  Source Server Version : 50621
  Source Host           : localhost:3306
- Source Schema         : networkbusinessdb
+ Source Schema         : broadbandbusinessdb
 
  Target Server Type    : MySQL
  Target Server Version : 50621
@@ -18,10 +18,10 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for bus_boardband
+-- Table structure for bus_broadband
 -- ----------------------------
-DROP TABLE IF EXISTS `bus_boardband`;
-CREATE TABLE `bus_boardband`  (
+DROP TABLE IF EXISTS `bus_broadband`;
+CREATE TABLE `bus_broadband`  (
   `band_id` int(255) NOT NULL,
   `band_width` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `band_speed` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -34,14 +34,14 @@ CREATE TABLE `bus_boardband`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of bus_boardband
+-- Records of bus_broadband
 -- ----------------------------
-INSERT INTO `bus_boardband` VALUES (1, '2M铜缆宽带', '256KB/S', 50.00, 500.00, 'ADSL铜线入户，单人使用', 1, '2019-12-05 23:48:17');
-INSERT INTO `bus_boardband` VALUES (2, '4M铜缆宽带', '512KB/S', 80.00, 800.00, 'ADSL铜线入户，2人使用', 1, '2019-12-05 23:49:02');
-INSERT INTO `bus_boardband` VALUES (3, '8M铜缆宽带', '1024KB/S', 150.00, 1200.00, 'ADSL铜线入户，4人宿舍首选', 1, '2019-12-05 23:50:31');
-INSERT INTO `bus_boardband` VALUES (4, '10M光纤宽带', '1.25MB/S', 200.00, 1600.00, 'FTTH光纤入户，大宽带无阻塞', 1, '2019-12-05 23:52:21');
-INSERT INTO `bus_boardband` VALUES (5, '20M光纤宽带', '2.50MB/S', 320.00, 3000.00, 'FTTH光纤入户，免费送modem', 1, '2019-12-05 23:53:51');
-INSERT INTO `bus_boardband` VALUES (6, '100M光纤宽带', '12.5MB/S', 500.00, 4000.00, 'FTTH光纤入户，优质业务筹划中', 0, '2019-12-06 00:05:56');
+INSERT INTO `bus_broadband` VALUES (1, '2M铜缆宽带', '256KB/S', 50.00, 500.00, 'ADSL铜线入户，单人使用', 1, '2019-12-05 23:48:17');
+INSERT INTO `bus_broadband` VALUES (2, '4M铜缆宽带', '512KB/S', 80.00, 800.00, 'ADSL铜线入户，2人使用', 1, '2019-12-05 23:49:02');
+INSERT INTO `bus_broadband` VALUES (3, '8M铜缆宽带', '1024KB/S', 150.00, 1200.00, 'ADSL铜线入户，4人宿舍首选', 1, '2019-12-05 23:50:31');
+INSERT INTO `bus_broadband` VALUES (4, '10M光纤宽带', '1.25MB/S', 200.00, 1600.00, 'FTTH光纤入户，大宽带无阻塞', 1, '2019-12-05 23:52:21');
+INSERT INTO `bus_broadband` VALUES (5, '20M光纤宽带', '2.50MB/S', 320.00, 3000.00, 'FTTH光纤入户，免费送modem', 1, '2019-12-05 23:53:51');
+INSERT INTO `bus_broadband` VALUES (6, '100M光纤宽带', '12.5MB/S', 500.00, 4000.00, 'FTTH光纤入户，优质业务筹划中', 0, '2019-12-06 00:05:56');
 
 -- ----------------------------
 -- Table structure for bus_customer
@@ -166,7 +166,7 @@ INSERT INTO `sys_menu` VALUES (3, 1, '业务管理', '', 0, '', '&#xe663;', 1);
 INSERT INTO `sys_menu` VALUES (4, 1, '系统管理', '', 1, '', '&#xe716;', 1);
 INSERT INTO `sys_menu` VALUES (5, 1, '统计分析', NULL, 0, NULL, '&#xe629;', 1);
 INSERT INTO `sys_menu` VALUES (6, 2, '客户管理', '../bus/toCustomerManager.action', 0, '', '&#xe770;', 1);
-INSERT INTO `sys_menu` VALUES (7, 2, '宽带管理', '../bus/toBoardBandManager.action', 0, '', '&#xe7ae;', 1);
+INSERT INTO `sys_menu` VALUES (7, 2, '宽带管理', '../bus/tobroadbandManager.action', 0, '', '&#xe7ae;', 1);
 INSERT INTO `sys_menu` VALUES (8, 3, '订单管理', '../bus/toOrderManager.action', 0, '', '&#xe63c;', 1);
 INSERT INTO `sys_menu` VALUES (9, 3, '添加订单', '../bus/toAddOrderPage.action', 0, '', '&#xe657;', 1);
 INSERT INTO `sys_menu` VALUES (10, 4, '菜单管理', '../sys/toMenuManager.action', 1, NULL, '&#xe60f', 1);
